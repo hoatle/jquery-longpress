@@ -43,6 +43,7 @@
   $.fn.longPress = function(options, onStartFn, onStopFn) {
 
     (function() {
+
       if ($.isFunction(options)) {
         onStopFn = onStartFn;
         onStartFn = options;
@@ -55,23 +56,22 @@
               return new Date().getTime() - startAt;
             }
           },
-          startAt = 0, pressTimer, done = true;
+          startAt = 0, pressTimer, running = false;
 
       function mouseDown() {
         pressTimer = window.setTimeout(function() {
-          done = false;
+          running = true;
           startAt = new Date().getTime();
           onStartFn.call(this, ctx);
         }, settings.triggerAfter);
       }
 
       function mouseUp() {
-        if (done) {
-          return;
-        }
-        done = true;
         window.clearTimeout(pressTimer);
-        onStopFn && onStopFn.call(this, ctx);
+        if (running) {
+          running = false;
+          onStopFn && onStopFn.call(this, ctx);
+        }
       }
 
       $(this).mousedown(mouseDown).mouseup(mouseUp);
