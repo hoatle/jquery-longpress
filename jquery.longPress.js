@@ -69,9 +69,9 @@
         if (done) {
           return;
         }
+        done = true;
         window.clearTimeout(pressTimer);
         onStopFn && onStopFn.call(this, ctx);
-        done = true;
       }
 
       $(this).mousedown(mouseDown).mouseup(mouseUp);
