@@ -19,5 +19,5 @@ $('.next').longPress(function(ctx) {
     console.log('long press is started!');
 }, function(ctx) {
     console.log('long press is stopped after: ' + ctx.getDuration() + ' ms');
-})
+});
 ```
